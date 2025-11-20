@@ -1,0 +1,281 @@
+/* Clients Page Styles */
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 0;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon:hover {
+  background: var(--hover-bg);
+}
+
+.btn-edit {
+  color: var(--primary-color);
+}
+
+.btn-delete {
+  color: var(--danger-color);
+}
+
+.btn-primary-active {
+  color: #fbbf24;
+}
+
+.btn-primary-active:hover {
+  color: #f59e0b;
+}
+
+.btn-primary-inactive {
+  color: var(--text-muted);
+}
+
+.btn-primary-inactive:hover {
+  color: var(--primary-color);
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  font-size: 1rem;
+  text-decoration: none;
+  padding: 0;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.link-button:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.info-item label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-item span {
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.card-header-with-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.card-header-with-action h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-sm {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.875rem;
+}
+
+.contact-form-container {
+  background: var(--bg-secondary);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 1.5rem;
+}
+
+.contact-form-container h4 {
+  margin: 0 0 1rem 0;
+  color: var(--text-primary);
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-weight: normal;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: auto;
+  cursor: pointer;
+  margin: 0;
+}
+
+.checkbox-label span {
+  color: var(--text-primary);
+}
+
+.primary-contact {
+  background: rgba(251, 191, 36, 0.1) !important;
+}
+
+.primary-contact:hover {
+  background: rgba(251, 191, 36, 0.15) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-header-with-action {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+
+  .action-buttons {
+    justify-content: center;
+  }
+}
+
+/* Loading and empty states */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+/* Button hover effects */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Status badges */
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status-new {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.status-contacted {
+  background: #e0e7ff;
+  color: #4338ca;
+}
+
+.status-qualified {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status-lost {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.status-converted {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status-draft {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.status-sent {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.status-accepted {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status-rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.status-expired {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* Dark mode status badges */
+:root[data-theme="dark"] .status-badge {
+  opacity: 0.9;
+}
