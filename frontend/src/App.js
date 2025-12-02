@@ -7,7 +7,9 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Clients from './pages/Clients';
+import Products from './pages/Products';
 import PlaceholderPage from './pages/PlaceholderPage';
+import Quotations from './pages/Quotations';
 import './App.css';
 
 function App() {
@@ -51,10 +53,7 @@ function AppContent() {
           path="/products"
           element={
             <ProtectedRoute permission="view_products">
-              <><Navbar /><PlaceholderPage 
-                title="Products" 
-                description="Manage your product catalog, pricing, and inventory." 
-              /></>
+              <><Navbar /><Products /></>
             </ProtectedRoute>
           }
         />
@@ -87,10 +86,7 @@ function AppContent() {
           path="/quotations"
           element={
             <ProtectedRoute permission="view_quotations">
-              <><Navbar /><PlaceholderPage 
-                title="Quotations" 
-                description="Create, manage, and generate PDF quotations for clients." 
-              /></>
+              <><Navbar /><Quotations /></>
             </ProtectedRoute>
           }
         />

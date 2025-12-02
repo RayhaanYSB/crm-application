@@ -580,7 +580,7 @@ const Clients = () => {
                             {quote.status}
                           </span>
                         </td>
-                        <td>${parseFloat(quote.total).toFixed(2)}</td>
+                        <td>R{parseFloat(quote.total).toFixed(2)}</td>
                         <td>
                           {quote.valid_until 
                             ? new Date(quote.valid_until).toLocaleDateString()

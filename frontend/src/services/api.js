@@ -64,12 +64,26 @@ export const togglePrimaryContact = (id) => api.patch(`/contacts/${id}/primary`)
 export const deleteContact = (id) => api.delete(`/contacts/${id}`);
 
 // Products
-export const getProducts = (activeOnly = false) => 
-  api.get(`/products${activeOnly ? '?active_only=true' : ''}`);
+export const getProducts = (activeOnly = false, productType = null) => {
+  let url = '/products?';
+  if (activeOnly) url += 'active_only=true&';
+  if (productType) url += `product_type=${productType}&`;
+  return api.get(url);
+};
 export const getProduct = (id) => api.get(`/products/${id}`);
 export const createProduct = (data) => api.post('/products', data);
 export const updateProduct = (id, data) => api.put(`/products/${id}`, data);
 export const deleteProduct = (id) => api.delete(`/products/${id}`);
+
+// Tags
+export const getTags = () => api.get('/tags');
+export const createTag = (data) => api.post('/tags', data);
+export const deleteTag = (id) => api.delete(`/tags/${id}`);
+
+// Service Units
+export const getUnits = () => api.get('/units');
+export const createUnit = (data) => api.post('/units', data);
+export const deleteUnit = (id) => api.delete(`/units/${id}`);
 
 // Leads
 export const getLeads = (clientId = null) => 
@@ -95,5 +109,12 @@ export const updateQuotation = (id, data) => api.put(`/quotations/${id}`, data);
 export const deleteQuotation = (id) => api.delete(`/quotations/${id}`);
 export const downloadQuotationPDF = (id) => 
   api.get(`/quotations/${id}/pdf`, { responseType: 'blob' });
+
+// Templates
+export const getTemplates = () => api.get('/templates');
+export const getTemplate = (id) => api.get(`/templates/${id}`);
+export const createTemplate = (data) => api.post('/templates', data);
+export const updateTemplate = (id, data) => api.put(`/templates/${id}`, data);
+export const deleteTemplate = (id) => api.delete(`/templates/${id}`);
 
 export default api;

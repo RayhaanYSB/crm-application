@@ -1,0 +1,238 @@
+/* Quotations Page Styles */
+
+.items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.item-row {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+}
+
+.item-fields {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 2fr 0.8fr 1fr 1fr;
+  gap: 1rem;
+  align-items: end;
+}
+
+.item-row .btn-delete {
+  align-self: center;
+}
+
+.total-display {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: var(--primary-color);
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+
+.totals-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.totals-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.totals-display {
+  background: var(--bg-secondary);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  border: 2px solid var(--border-color);
+}
+
+.total-line {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.total-line:last-child {
+  border-bottom: none;
+}
+
+.total-line span:first-child {
+  color: var(--text-secondary);
+}
+
+.total-line span:last-child {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.total-final {
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 2px solid var(--primary-color) !important;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.total-final span {
+  color: var(--primary-color) !important;
+}
+
+/* Status badges specific to quotations */
+.status-draft {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.status-sent {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.status-accepted {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status-rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.status-expired {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* PDF button styling */
+.btn-icon.btn-primary {
+  color: #dc2626;
+}
+
+.btn-icon.btn-primary:hover {
+  background: #fee2e2;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+  .item-fields {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .item-row {
+    flex-direction: column;
+  }
+
+  .item-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .item-row .btn-delete {
+    align-self: flex-end;
+  }
+
+  .totals-section {
+    grid-template-columns: 1fr;
+  }
+
+  .total-display {
+    justify-content: flex-end;
+  }
+}
+
+/* Empty state styling */
+.items-list + p {
+  margin: 0;
+}
+
+/* Card header with action button */
+.card-header-with-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.card-header-with-action h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.25rem;
+}
+
+/* Form improvements */
+.form-group select.form-control option {
+  padding: 0.5rem;
+}
+
+/* Item row hover effect */
+.item-row:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode adjustments */
+:root[data-theme="dark"] .item-row {
+  background: var(--bg-primary);
+}
+
+:root[data-theme="dark"] .totals-display {
+  background: var(--bg-primary);
+}
+
+:root[data-theme="dark"] .total-line {
+  border-bottom-color: var(--border-color);
+}
+
+/* Loading state for PDF generation */
+.btn-icon.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Ensure proper spacing */
+.card + .card {
+  margin-top: 1.5rem;
+}
+
+.form-actions {
+  margin-top: 2rem;
+}
+
+/* Nice transitions */
+.item-row,
+.totals-display,
+.btn-icon {
+  transition: all 0.3s ease;
+}
+
+/* Input number styling - remove spinner in some browsers */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1;
+}
+
+/* Highlight required fields */
+.form-label::after {
+  content: none;
+}
+
+.form-label:has(+ .form-control[required])::after {
+  content: " *";
+  color: var(--danger-color);
+}
