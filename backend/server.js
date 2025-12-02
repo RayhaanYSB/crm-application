@@ -32,6 +32,9 @@ app.use('/api/opportunities', require('./routes/opportunities'));
 app.use('/api/quotations', require('./routes/quotations'));
 app.use('/api/contacts', require('./routes/contacts'));
 app.use('/api/templates', require('./routes/templates'));
+app.use('/api/projects', require('./routes/projects'));           
+app.use('/api/task-admin', require('./routes/taskAdmin'));        
+app.use('/api/tasks', require('./routes/tasks'));                 
 
 // Health check
 app.get('/api/health', (req, res) => {

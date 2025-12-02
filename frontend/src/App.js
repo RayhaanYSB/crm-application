@@ -10,6 +10,7 @@ import Clients from './pages/Clients';
 import Products from './pages/Products';
 import PlaceholderPage from './pages/PlaceholderPage';
 import Quotations from './pages/Quotations';
+import TaskTracker from './pages/TaskTracker';
 import './App.css';
 
 function App() {
@@ -90,6 +91,15 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/tasks"
+          element={
+            <ProtectedRoute permission="view_tasks">
+              <><Navbar /><TaskTracker /></>
+            </ProtectedRoute>
+          }
+        />
         
         <Route
           path="/users"
@@ -102,6 +112,7 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+
         
         {/* Catch all - redirect to dashboard */}
         <Route path="*" element={<Navigate to="/" replace />} />

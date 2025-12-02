@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { 
   FaUsers, FaBox, FaUserTie, FaBullseye, 
-  FaFileInvoice, FaUserCog 
+  FaFileInvoice, FaUserCog, FaTasks 
 } from 'react-icons/fa';
 import './Dashboard.css';
 
@@ -50,6 +50,14 @@ const Dashboard = () => {
       permission: 'view_quotations',
       description: 'Create and manage quotations',
       color: '#d53f8c'
+    },
+    { 
+      name: 'Task Tracker',           // ADD THIS MODULE
+      path: '/tasks', 
+      icon: <FaTasks />, 
+      permission: 'view_tasks',
+      description: 'Track and manage all tasks',
+      color: '#00a8cc'
     },
     { 
       name: 'Users', 
