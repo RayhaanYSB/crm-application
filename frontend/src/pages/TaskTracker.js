@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
+import { API_URL } from '../services/api';
 import './TaskTracker.css';
 
 const TaskTracker = () => {
@@ -62,7 +63,7 @@ const TaskTracker = () => {
       });
 
       // Fetch tasks with filters
-      const tasksRes = await fetch(`http://localhost:5000/api/tasks?${queryParams}`, {
+      const tasksRes = await fetch(`${API_URL}/api/tasks?${queryParams}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const tasksData = await tasksRes.json();
@@ -71,16 +72,16 @@ const TaskTracker = () => {
       // Fetch other data (only once, not on filter change)
       if (projects.length === 0) {
         const [projectsRes, deptsRes, usersRes, clientsRes] = await Promise.all([
-          fetch('http://localhost:5000/api/projects', {
+          fetch(`${API_URL}/api/projects`, {
             headers: { 'Authorization': `Bearer ${token}` }
           }),
-          fetch('http://localhost:5000/api/task-admin/departments', {
+          fetch(`${API_URL}/api/task-admin/departments`, {
             headers: { 'Authorization': `Bearer ${token}` }
           }),
-          fetch('http://localhost:5000/api/users', {
+          fetch(`${API_URL}/api/users`, {
             headers: { 'Authorization': `Bearer ${token}` }
           }),
-          fetch('http://localhost:5000/api/clients', {
+          fetch(`${API_URL}/api/clients`, {
             headers: { 'Authorization': `Bearer ${token}` }
           })
         ]);
@@ -113,7 +114,7 @@ const TaskTracker = () => {
     
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:5000/api/task-admin/subcategories?department_id=${departmentId}`, {
+      const res = await fetch(`${API_URL}/api/task-admin/subcategories?department_id=${departmentId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await res.json();
@@ -129,8 +130,8 @@ const TaskTracker = () => {
     try {
       const token = localStorage.getItem('token');
       const url = editingTask 
-        ? `http://localhost:5000/api/tasks/${editingTask.id}`
-        : 'http://localhost:5000/api/tasks';
+        ? `${API_URL}/api/tasks/${editingTask.id}`
+        : `${API_URL}/api/tasks`;
       
       const method = editingTask ? 'PUT' : 'POST';
 
@@ -189,7 +190,7 @@ const TaskTracker = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:5000/api/tasks/${taskId}`, {
+      const res = await fetch(`${API_URL}/api/tasks/${taskId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -212,7 +213,7 @@ const TaskTracker = () => {
       const token = localStorage.getItem('token');
       
       // Get the current task data
-      const taskRes = await fetch(`http://localhost:5000/api/tasks/${taskId}`, {
+      const taskRes = await fetch(`${API_URL}/api/tasks/${taskId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -225,7 +226,7 @@ const TaskTracker = () => {
       
       // Update task to closed status with today's date
       const today = new Date().toISOString().split('T')[0];
-      const updateRes = await fetch(`http://localhost:5000/api/tasks/${taskId}`, {
+      const updateRes = await fetch(`${API_URL}/api/tasks/${taskId}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

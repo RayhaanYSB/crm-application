@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
+import { API_URL } from '../services/api';
 import {
   BarChart, Bar, LineChart, Line, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
@@ -37,7 +38,7 @@ const TaskAnalytics = () => {
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:5000/api/task-analytics/users', {
+      const res = await fetch(`${API_URL}/api/task-analytics/users`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await res.json();
@@ -57,7 +58,7 @@ const TaskAnalytics = () => {
       if (filters.start_date) queryParams.append('start_date', filters.start_date);
       if (filters.end_date) queryParams.append('end_date', filters.end_date);
 
-      const res = await fetch(`http://localhost:5000/api/task-analytics/overview?${queryParams}`, {
+      const res = await fetch(`${API_URL}/api/task-analytics/overview?${queryParams}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
