@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const taskAnalyticsRoutes = require('./routes/taskAnalytics');
 require('dotenv').config();
 
 const app = express();
@@ -34,7 +35,8 @@ app.use('/api/contacts', require('./routes/contacts'));
 app.use('/api/templates', require('./routes/templates'));
 app.use('/api/projects', require('./routes/projects'));           
 app.use('/api/task-admin', require('./routes/taskAdmin'));        
-app.use('/api/tasks', require('./routes/tasks'));                 
+app.use('/api/tasks', require('./routes/tasks')); 
+app.use('/api/task-analytics', taskAnalyticsRoutes);                
 
 // Health check
 app.get('/api/health', (req, res) => {

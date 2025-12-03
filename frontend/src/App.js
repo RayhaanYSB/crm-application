@@ -11,6 +11,7 @@ import Products from './pages/Products';
 import PlaceholderPage from './pages/PlaceholderPage';
 import Quotations from './pages/Quotations';
 import TaskTracker from './pages/TaskTracker';
+import TaskAnalytics from './pages/TaskAnalytics';
 import './App.css';
 
 function App() {
@@ -99,6 +100,18 @@ function AppContent() {
               <><Navbar /><TaskTracker /></>
             </ProtectedRoute>
           }
+        />
+        
+        <Route 
+          path="/task-analytics" 
+          element={
+            <ProtectedRoute permission="manage_task_admin">
+              <>
+                <Navbar />
+                <TaskAnalytics />
+              </>
+            </ProtectedRoute>
+          } 
         />
         
         <Route

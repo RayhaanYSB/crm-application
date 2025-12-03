@@ -16,6 +16,7 @@ const TaskTracker = () => {
   const [error, setError] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
+  const [viewMode, setViewMode] = useState('card'); // 'card' or 'list'
   
   // Filters
   const [filters, setFilters] = useState({
@@ -327,9 +328,27 @@ const TaskTracker = () => {
       <div className="task-tracker" data-theme={theme}>
         <div className="page-header">
           <h1>Task Tracker</h1>
-          <button className="btn btn-primary" onClick={() => setShowForm(!showForm)}>
-            {showForm ? '✕ Cancel' : '+ New Task'}
-          </button>
+          <div className="header-actions">
+            <div className="view-toggle">
+              <button 
+                className={`btn btn-toggle ${viewMode === 'card' ? 'active' : ''}`}
+                onClick={() => setViewMode('card')}
+                title="Card View"
+              >
+                <span>📋</span> Cards
+              </button>
+              <button 
+                className={`btn btn-toggle ${viewMode === 'list' ? 'active' : ''}`}
+                onClick={() => setViewMode('list')}
+                title="List View"
+              >
+                <span>📊</span> List
+              </button>
+            </div>
+            <button className="btn btn-primary" onClick={() => setShowForm(!showForm)}>
+              {showForm ? '✕ Cancel' : '+ New Task'}
+            </button>
+          </div>
         </div>
 
         {error && <div className="alert alert-error">{error}</div>}
@@ -619,9 +638,8 @@ const TaskTracker = () => {
         <h3>Active Tasks ({tasks.filter(t => t.status !== 'closed').length})</h3>
         {tasks.filter(t => t.status !== 'closed').length === 0 ? (
           <p className="no-data">No active tasks.</p>
-        ) : (
-          <div className="tasks-grid">
-            {tasks.filter(t => t.status !== 'closed').map(task => (
+        ) : viewMode === 'card' ? (
+          <div className="tasks-grid">{tasks.filter(t => t.status !== 'closed').map(task => (
               <div key={task.id} className="task-card">
                 {task.created_by_name && (
                   <div className="task-owner">
@@ -720,6 +738,68 @@ const TaskTracker = () => {
               </div>
             ))}
           </div>
+        ) : (
+          <div className="task-table-container">
+            <table className="task-table">
+              <thead>
+                <tr>
+                  <th>Owner</th>
+                  <th>Title</th>
+                  <th>Priority</th>
+                  <th>Status</th>
+                  <th>Client</th>
+                  <th>Department</th>
+                  <th>Due Date</th>
+                  <th>Hours</th>
+                  <th>Team</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tasks.filter(t => t.status !== 'closed').map(task => (
+                  <tr key={task.id} className={task.is_overdue ? 'row-overdue' : ''}>
+                    <td>{task.created_by_name}</td>
+                    <td>
+                      <strong>{task.title}</strong>
+                      {task.description && <div className="table-desc">{task.description.substring(0, 60)}...</div>}
+                    </td>
+                    <td>
+                      <span 
+                        className="priority-badge" 
+                        style={{ backgroundColor: getPriorityColor(task.priority) }}
+                      >
+                        {task.priority}
+                      </span>
+                    </td>
+                    <td>
+                      <span className={`badge ${getStatusBadge(task.status)}`}>
+                        {task.status.replace('_', ' ')}
+                      </span>
+                    </td>
+                    <td>{task.client_name || '-'}</td>
+                    <td>{task.department_name || '-'}</td>
+                    <td>
+                      {task.due_date ? (
+                        <span className={task.is_overdue ? 'text-danger' : ''}>
+                          {new Date(task.due_date).toLocaleDateString()}
+                          {task.is_overdue && ' ⚠️'}
+                        </span>
+                      ) : '-'}
+                    </td>
+                    <td>{task.total_hours || 0}</td>
+                    <td>{task.team_members ? task.team_members.length : 0}</td>
+                    <td>
+                      <div className="table-actions">
+                        <button className="btn btn-xs btn-primary" onClick={() => handleEdit(task)} title="Edit">✏️</button>
+                        <button className="btn btn-xs btn-danger" onClick={() => handleDelete(task.id)} title="Delete">🗑️</button>
+                        <button className="btn btn-xs btn-success" onClick={() => handleCloseTask(task.id)} title="Close">✓</button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
 
@@ -728,7 +808,7 @@ const TaskTracker = () => {
         <h3>Closed Tasks ({tasks.filter(t => t.status === 'closed').length})</h3>
         {tasks.filter(t => t.status === 'closed').length === 0 ? (
           <p className="no-data">No closed tasks.</p>
-        ) : (
+        ) : viewMode === 'card' ? (
           <div className="tasks-grid">
             {tasks.filter(t => t.status === 'closed').map(task => (
               <div key={task.id} className="task-card task-card-closed">
@@ -829,6 +909,63 @@ const TaskTracker = () => {
                 </div>
               </div>
             ))}
+          </div>
+        ) : (
+          <div className="task-table-container">
+            <table className="task-table">
+              <thead>
+                <tr>
+                  <th>Owner</th>
+                  <th>Title</th>
+                  <th>Priority</th>
+                  <th>Client</th>
+                  <th>Department</th>
+                  <th>Closed Date</th>
+                  <th>Due Date</th>
+                  <th>Hours</th>
+                  <th>Team</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tasks.filter(t => t.status === 'closed').map(task => (
+                  <tr key={task.id} className="row-closed">
+                    <td>{task.created_by_name}</td>
+                    <td>
+                      <strong>{task.title}</strong>
+                      {task.description && <div className="table-desc">{task.description.substring(0, 60)}...</div>}
+                    </td>
+                    <td>
+                      <span 
+                        className="priority-badge" 
+                        style={{ backgroundColor: getPriorityColor(task.priority) }}
+                      >
+                        {task.priority}
+                      </span>
+                    </td>
+                    <td>{task.client_name || '-'}</td>
+                    <td>{task.department_name || '-'}</td>
+                    <td>{task.close_date ? new Date(task.close_date).toLocaleDateString() : '-'}</td>
+                    <td>
+                      {task.due_date ? (
+                        <span className={task.is_overdue ? 'text-danger' : ''}>
+                          {new Date(task.due_date).toLocaleDateString()}
+                          {task.is_overdue && ' ⚠️'}
+                        </span>
+                      ) : '-'}
+                    </td>
+                    <td>{task.total_hours || 0}</td>
+                    <td>{task.team_members ? task.team_members.length : 0}</td>
+                    <td>
+                      <div className="table-actions">
+                        <button className="btn btn-xs btn-primary" onClick={() => handleEdit(task)} title="Edit">✏️</button>
+                        <button className="btn btn-xs btn-danger" onClick={() => handleDelete(task.id)} title="Delete">🗑️</button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
       </div>

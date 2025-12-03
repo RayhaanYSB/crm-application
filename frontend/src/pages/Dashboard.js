@@ -1,10 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { 
-  FaUsers, FaBox, FaUserTie, FaBullseye, 
-  FaFileInvoice, FaUserCog, FaTasks 
-} from 'react-icons/fa';
+import { FaUsers, FaBox, FaUserTie, FaBullseye, FaFileInvoice, FaTasks, FaChartBar, FaUsersCog } from 'react-icons/fa';
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -59,10 +56,18 @@ const Dashboard = () => {
       description: 'Track and manage all tasks',
       color: '#00a8cc'
     },
+    {
+      name: 'Task Analytics',
+      path: '/task-analytics',
+      icon: <FaChartBar />,
+      permission: 'manage_task_admin',
+      color: '#6f42c1',
+      description: 'View comprehensive task analytics and reports'
+    },
     { 
       name: 'Users', 
       path: '/users', 
-      icon: <FaUserCog />, 
+      icon: <FaUsersCog />, 
       permission: 'manage_users',
       description: 'Manage users and permissions',
       color: '#2c5282'
